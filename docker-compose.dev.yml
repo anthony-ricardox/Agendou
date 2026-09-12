@@ -1,0 +1,41 @@
+# Este arquivo define os "serviços" (containers) que compõem nosso
+# ambiente de desenvolvimento, e como eles se conectam entre si.
+
+services:
+
+  # Serviço do banco de dados PostgreSQL
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: agendou
+      POSTGRES_PASSWORD: agendou9418
+      POSTGRES_DB: agendou_development
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  # Serviço da aplicação Rails
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    working_dir: /app
+    volumes:
+      - .:/app
+      - bundle_data:/usr/local/bundle
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_HOST: db
+      DATABASE_USERNAME: agendou
+      DATABASE_PASSWORD: agendou9418
+    depends_on:
+      - db
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0"
+    tty: true
+    stdin_open: true
+
+volumes:
+  db_data:
+  bundle_data:
