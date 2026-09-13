@@ -36,3 +36,38 @@
 
 /app/assets/builds/*
 !/app/assets/builds/.keep
+
+# Segredos e variáveis de ambiente
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.crt
+*.p12
+master.key
+config/master.key
+
+# Docker com credenciais locais
+docker-compose.dev.yml
+docker-compose.override.yml
+
+# Dados e volumes de banco
+db_data/
+pgdata/
+mysql_data/
+*.sql
+*.dump
+backup.sql
+
+# Storage e arquivos temporários
+storage/
+tmp/
+
+# Dependências reconstruídas pelo Dockerfile
+node_modules/
+vendor/bundle/
+.bundle/
+
+# Artefatos Docker
+*.tar
