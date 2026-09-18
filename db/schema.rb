@@ -10,17 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_12_170648) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_18_014108) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
   create_table "appointments", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.datetime "ends_at"
+    t.datetime "ends_at", null: false
     t.datetime "reminder_sent_at"
     t.bigint "service_id", null: false
-    t.datetime "starts_at"
-    t.integer "status"
+    t.datetime "starts_at", null: false
+    t.integer "status", default: 0, null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.index ["service_id"], name: "index_appointments_on_service_id"
@@ -59,6 +59,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_12_170648) do
     t.datetime "created_at", null: false
     t.string "email"
     t.string "name"
+    t.string "password_digest"
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
