@@ -1,0 +1,10 @@
+<h1>Editar perfil de prestador</h1>
+
+<%= form_with model: @provider, url: provider_path, method: :patch do |form| %>
+  <div>
+    <%= form.label :bio, "Fale sobre você" %>
+    <%= form.text_area :bio %>
+  </div>
+
+  <%= form.submit "Salvar" %>
+<% end %>

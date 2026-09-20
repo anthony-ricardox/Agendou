@@ -1,0 +1,9 @@
+<h1>Agendou</h1>
+
+<% if current_user %>
+  <p>Bem-vindo, <%= current_user.name %>!</p>
+  <%= button_to "Sair", session_path, method: :delete %>
+<% else %>
+  <p>Você não está logado.</p>
+  <%= link_to "Entrar", new_session_path %>
+<% end %>
