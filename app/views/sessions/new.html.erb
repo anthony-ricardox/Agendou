@@ -1,0 +1,19 @@
+<h1>Entrar</h1>
+
+<%= form_with url: session_path, method: :post do |form| %>
+  <% if flash[:alert] %>
+    <p style="color: red;"><%= flash[:alert] %></p>
+  <% end %>
+
+  <div>
+    <%= form.label :email %>
+    <%= form.email_field :email, required: true %>
+  </div>
+
+  <div>
+    <%= form.label :password, "Senha" %>
+    <%= form.password_field :password, required: true %>
+  </div>
+
+  <%= form.submit "Entrar" %>
+<% end %>
