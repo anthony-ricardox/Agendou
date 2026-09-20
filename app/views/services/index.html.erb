@@ -1,0 +1,11 @@
+<h1>Meus serviços</h1>
+
+<%= link_to "Novo serviço", new_service_path %>
+
+<ul>
+  <% @services.each do |service| %>
+    <li>
+      <%= service.name %> — <%= service.duration_minutes %> min — R$ <%= service.price %>
+    </li>
+  <% end %>
+</ul>
