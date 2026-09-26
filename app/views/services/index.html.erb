@@ -6,6 +6,8 @@
   <% @services.each do |service| %>
     <li>
       <%= service.name %> — <%= service.duration_minutes %> min — R$ <%= service.price %>
+      <%= link_to "Editar", edit_service_path(service) %>
+      <%= button_to "Remover", service_path(service), method: :delete %>
     </li>
   <% end %>
 </ul>
