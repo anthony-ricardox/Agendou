@@ -1,0 +1,14 @@
+<h1>Minha disponibilidade</h1>
+
+<%= link_to "Nova disponibilidade", new_availability_path %>
+
+<ul>
+  <% @availabilities.each do |availability| %>
+    <li>
+      <%= Date::DAYNAMES[availability.day_of_week] %> — 
+      <%= availability.start_time.strftime("%H:%M") %> às <%= availability.end_time.strftime("%H:%M") %>
+      <%= link_to "Editar", edit_availability_path(availability) %>
+      <%= button_to "Remover", availability_path(availability), method: :delete %>
+    </li>
+  <% end %>
+</ul>

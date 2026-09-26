@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resource :session, only: [:new, :create, :destroy]
   resource :provider, only: [:new, :create, :edit, :update]
   resources :services
+  resources :availabilities
 
   get "pages/home"
   root "pages#home"
