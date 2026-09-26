@@ -1,6 +1,7 @@
 class ServicesController < ApplicationController
   before_action :require_login
   before_action :require_provider
+  before_action :set_service, only: [:edit, :update, :destroy]
 
   def index
     @services = current_user.provider.services
@@ -20,6 +21,22 @@ class ServicesController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+    if @service.update(service_params)
+      redirect_to services_path, notice: "Serviço atualizado"
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @service.destroy
+    redirect_to services_path, notice: "Serviço removido"
+  end
+
   private
 
   def service_params
@@ -30,5 +47,9 @@ class ServicesController < ApplicationController
     unless current_user.provider.present?
       redirect_to new_provider_path, alert: "Você precisa se cadastrar como prestador primeiro"
     end
+  end
+
+  def set_service
+    @service = current_user.provider.services.find(params[:id])
   end
 end
