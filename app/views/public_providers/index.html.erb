@@ -1,0 +1,10 @@
+<h1>Prestadores disponíveis</h1>
+
+<ul>
+  <% @providers.each do |provider| %>
+    <li>
+      <%= link_to provider.user.name, provider_path(provider) %>
+      <p><%= provider.bio %></p>
+    </li>
+  <% end %>
+</ul>
