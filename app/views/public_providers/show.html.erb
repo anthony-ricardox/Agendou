@@ -1,0 +1,12 @@
+<h1><%= @provider.user.name %></h1>
+<p><%= @provider.bio %></p>
+
+<h2>Serviços</h2>
+<ul>
+  <% @services.each do |service| %>
+    <li>
+      <%= service.name %> — <%= service.duration_minutes %> min — R$ <%= service.price %>
+      <%= link_to "Agendar", new_appointment_path(service_id: service.id) %>
+    </li>
+  <% end %>
+</ul>
