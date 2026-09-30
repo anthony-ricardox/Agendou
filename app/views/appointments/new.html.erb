@@ -1,0 +1,17 @@
+<h1>Agendar <%= @service.name %></h1>
+
+<% if @available_slots.any? %>
+  <ul>
+    <% @available_slots.each do |slot| %>
+      <li>
+        <%= form_with url: appointments_path, method: :post do |form| %>
+          <%= form.hidden_field :service_id, value: @service.id %>
+          <%= form.hidden_field :starts_at, value: slot.iso8601 %>
+          <%= form.submit slot.strftime("%d/%m %H:%M") %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>Nenhum horário disponível nos próximos dias.</p>
+<% end %>
