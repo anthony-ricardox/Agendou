@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 8.1.3", ">= 8.1.3.1"
+gem "rails", "~> 8.1.4"
 # Pin json to 2.x to avoid breaking changes in json 3.0+ with Rails ActiveSupport
 gem "json", "~> 2.10"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
