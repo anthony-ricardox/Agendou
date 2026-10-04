@@ -1,0 +1,19 @@
+<h1>Meus agendamentos</h1>
+
+<% if @appointments.any? %>
+  <ul>
+    <% @appointments.each do |appointment| %>
+      <li>
+        <%= appointment.service.name %> com <%= appointment.service.provider.user.name %>
+        — <%= appointment.starts_at.strftime("%d/%m às %H:%M") %>
+        — status: <%= appointment.status %>
+
+        <% if appointment.pending? || appointment.confirmed? %>
+          <%= button_to "Cancelar", appointment_path(appointment), method: :delete %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>Você ainda não tem agendamentos.</p>
+<% end %>
