@@ -24,8 +24,8 @@ class Appointment < ApplicationRecord
     overlapping = Appointment
       .joins(:service)
       .where(services: { provider_id: provider.id })
-      .where.not(status: :cancelled)
       .where.not(id: id)
+      .where.not(status: :cancelled)
       .where("starts_at < ? AND ends_at > ?", ends_at, starts_at)
 
     errors.add(:base, "Esse horário conflita com outro agendamento") if overlapping.exists?

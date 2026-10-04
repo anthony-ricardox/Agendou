@@ -6,8 +6,7 @@ Rails.application.routes.draw do
   resources :availabilities
 
   resources :providers, only: [:index, :show], controller: "public_providers"
-  resources :appointments, only: [:new, :create]
-      
+  resources :appointments, only: [:index, :new, :create, :destroy]
 
   get "pages/home"
   root "pages#home"

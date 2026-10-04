@@ -1,5 +1,10 @@
 class AppointmentsController < ApplicationController
   before_action :require_login
+  before_action :set_appointment, only: [:destroy]
+
+  def index
+    @appointments = current_user.appointments.order(starts_at: :asc)
+  end
 
   def new
     @service = Service.find(params[:service_id])
@@ -19,14 +24,23 @@ class AppointmentsController < ApplicationController
     )
 
     if @appointment.save
-      redirect_to root_path, notice: "Agendamento confirmado!"
+      redirect_to appointments_path, notice: "Agendamento confirmado!"
     else
       @available_slots = calculate_available_slots(@service)
       render :new, status: :unprocessable_entity
     end
   end
 
+  def destroy
+    @appointment.cancelled!
+    redirect_to appointments_path, notice: "Agendamento cancelado"
+  end
+
   private
+
+  def set_appointment
+    @appointment = current_user.appointments.find(params[:id])
+  end
 
   def calculate_available_slots(service)
     provider = service.provider
@@ -46,6 +60,7 @@ class AppointmentsController < ApplicationController
         conflict = Appointment
           .joins(:service)
           .where(services: { provider_id: provider.id })
+          .where.not(status: :cancelled)
           .where("starts_at < ? AND ends_at > ?", slot_end, slot_start)
           .exists?
 
