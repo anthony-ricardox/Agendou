@@ -1,0 +1,15 @@
+<h1>Minha agenda</h1>
+
+<% if @appointments.any? %>
+  <ul>
+    <% @appointments.each do |appointment| %>
+      <li>
+        <%= appointment.service.name %> para <%= appointment.user.name %>
+        — <%= appointment.starts_at.strftime("%d/%m às %H:%M") %>
+        — status: <%= appointment.status %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>Nenhum agendamento recebido ainda.</p>
+<% end %>
