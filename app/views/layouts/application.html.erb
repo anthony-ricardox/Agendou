@@ -1,37 +1,62 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "App" %></title>
+    <title>Agendou</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="App">
-    <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
-    <%= yield :head %>
-
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-  <% if flash[:notice] %>
-    <p style="color: green;"><%= flash[:notice] %></p>
-  <% end %>
+  <body class="min-h-screen bg-slate-50 font-sans text-slate-900 antialiased">
+    <nav class="sticky top-0 z-10 border-b border-slate-200 bg-white/80 backdrop-blur-sm">
+      <div class="mx-auto flex max-w-4xl items-center gap-6 px-6 py-4">
+        <%= link_to root_path, class: "flex items-center gap-2 font-semibold text-slate-900" do %>
+          <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600 text-white">📅</span>
+          <span>Agendou</span>
+        <% end %>
 
-  <% if flash[:alert] %>
-    <p style="color: red;"><%= flash[:alert] %></p>
-  <% end %>
+        <div class="flex flex-1 items-center gap-1">
+          <% if current_user %>
+            <% if current_user.provider.present? %>
+              <%= link_to "Serviços", services_path, class: "rounded-md px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900" %>
+              <%= link_to "Disponibilidade", availabilities_path, class: "rounded-md px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900" %>
+              <%= link_to "Minha agenda", schedule_appointments_path, class: "rounded-md px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900" %>
+            <% else %>
+              <%= link_to "Tornar-se prestador", new_provider_path, class: "rounded-md px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900" %>
+            <% end %>
+            <%= link_to "Prestadores", providers_path, class: "rounded-md px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900" %>
+            <%= link_to "Meus agendamentos", appointments_path, class: "rounded-md px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900" %>
+          <% end %>
+        </div>
 
-  <%= yield %>
-</body>
+        <% if current_user %>
+          <%= button_to "Sair", session_path, method: :delete, class: "rounded-md bg-slate-100 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-200" %>
+        <% else %>
+          <div class="flex items-center gap-2">
+            <%= link_to "Entrar", new_session_path, class: "rounded-md px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900" %>
+            <%= link_to "Criar conta", new_user_path, class: "rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-500" %>
+          </div>
+        <% end %>
+      </div>
+    </nav>
+
+    <main class="mx-auto max-w-4xl px-6 py-10">
+      <% if flash[:notice] %>
+        <div class="mb-6 flex items-center gap-2 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-800">
+          <span>✓</span> <%= flash[:notice] %>
+        </div>
+      <% end %>
+
+      <% if flash[:alert] %>
+        <div class="mb-6 flex items-center gap-2 rounded-lg border border-rose-200 bg-rose-50 px-4 py-3 text-sm font-medium text-rose-800">
+          <span>⚠</span> <%= flash[:alert] %>
+        </div>
+      <% end %>
+
+      <%= yield %>
+    </main>
+  </body>
 </html>

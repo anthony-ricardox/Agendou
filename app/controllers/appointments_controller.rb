@@ -1,9 +1,14 @@
 class AppointmentsController < ApplicationController
   before_action :require_login
   before_action :set_appointment, only: [:destroy]
+  before_action :require_provider, only: [:schedule]
 
   def index
     @appointments = current_user.appointments.order(starts_at: :asc)
+  end
+
+  def schedule
+    @appointments = current_user.provider.appointments.order(starts_at: :asc)
   end
 
   def new
@@ -40,6 +45,12 @@ class AppointmentsController < ApplicationController
 
   def set_appointment
     @appointment = current_user.appointments.find(params[:id])
+  end
+
+  def require_provider
+    unless current_user.provider.present?
+      redirect_to root_path, alert: "Você precisa ser um prestador"
+    end
   end
 
   def calculate_available_slots(service)
