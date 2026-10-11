@@ -1,10 +1,28 @@
-<h1>Prestadores disponíveis</h1>
+<div>
+  <h1 class="text-3xl font-semibold tracking-tight text-slate-900">Prestadores</h1>
+  <p class="mt-1 text-slate-500">Escolha quem vai te atender.</p>
 
-<ul>
-  <% @providers.each do |provider| %>
-    <li>
-      <%= link_to provider.user.name, provider_path(provider) %>
-      <p><%= provider.bio %></p>
-    </li>
+  <% if @providers.any? %>
+    <div class="mt-8 grid gap-4 sm:grid-cols-2">
+      <% @providers.each do |provider| %>
+        <%= link_to provider_path(provider), class: "group flex gap-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:border-indigo-300 hover:shadow-md" do %>
+          <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-lg font-semibold text-indigo-700">
+            <%= provider.user.name[0].upcase %>
+          </div>
+
+          <div class="min-w-0">
+            <h2 class="font-semibold text-slate-900 group-hover:text-indigo-600"><%= provider.user.name %></h2>
+            <p class="mt-1 line-clamp-2 text-sm text-slate-500">
+              <%= provider.bio.presence || "Sem descrição ainda." %>
+            </p>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="mt-8 rounded-2xl border border-dashed border-slate-300 bg-white p-12 text-center">
+      <p class="font-medium text-slate-900">Nenhum prestador por aqui ainda</p>
+      <p class="mt-1 text-sm text-slate-500">Quando alguém se cadastrar como prestador, vai aparecer nesta lista.</p>
+    </div>
   <% end %>
-</ul>
+</div>
