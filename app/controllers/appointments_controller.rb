@@ -3,13 +3,17 @@ class AppointmentsController < ApplicationController
   before_action :set_appointment, only: [:destroy]
   before_action :require_provider, only: [:schedule]
 
-  def index
-    @appointments = current_user.appointments.order(starts_at: :asc)
-  end
+def index
+  @appointments = current_user.appointments
+                              .includes(service: { provider: :user })
+                              .order(starts_at: :asc)
+end
 
-  def schedule
-    @appointments = current_user.provider.appointments.order(starts_at: :asc)
-  end
+def schedule
+  @appointments = current_user.provider.appointments
+                               .includes(:user, :service)
+                               .order(starts_at: :asc)
+end
 
   def new
     @service = Service.find(params[:service_id])
