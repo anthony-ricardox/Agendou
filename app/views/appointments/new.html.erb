@@ -1,7 +1,7 @@
 <% dias = %w[domingo segunda-feira terça-feira quarta-feira quinta-feira sexta-feira sábado] %>
 
 <div>
-  <%= link_to "← Voltar", provider_path(@service.provider), class: "text-sm font-medium text-slate-500 hover:text-indigo-600" %>
+  <%= link_to "← Voltar", public_provider_path(@service.provider), class: "text-sm font-medium text-slate-500 hover:text-indigo-600" %>
 
   <div class="mt-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
     <p class="text-sm font-medium text-indigo-600">Agendar horário</p>
