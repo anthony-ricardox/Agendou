@@ -1,0 +1,25 @@
+<%= render "shared/errors", record: availability %>
+
+<%= form_with model: availability, class: "space-y-5" do |form| %>
+  <div>
+    <%= form.label :day_of_week, "Dia da semana", class: label_classes %>
+    <%= form.select :day_of_week, options_for_select(day_options, availability.day_of_week), {}, class: input_classes %>
+  </div>
+
+  <div class="grid grid-cols-2 gap-4">
+    <div>
+      <%= form.label :start_time, "Início", class: label_classes %>
+      <%= form.time_field :start_time, required: true, class: input_classes %>
+    </div>
+
+    <div>
+      <%= form.label :end_time, "Fim", class: label_classes %>
+      <%= form.time_field :end_time, required: true, class: input_classes %>
+    </div>
+  </div>
+
+  <div class="flex items-center gap-3 pt-2">
+    <%= form.submit "Salvar", class: primary_button_classes %>
+    <%= link_to "Cancelar", availabilities_path, class: secondary_button_classes %>
+  </div>
+<% end %>

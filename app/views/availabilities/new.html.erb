@@ -1,20 +1,10 @@
-<h1>Nova disponibilidade</h1>
+<div class="mx-auto max-w-md">
+  <%= link_to "← Voltar", availabilities_path, class: "text-sm font-medium text-slate-500 hover:text-indigo-600" %>
 
-<%= form_with model: @availability do |form| %>
-  <div>
-    <%= form.label :day_of_week, "Dia da semana" %>
-    <%= form.select :day_of_week, options_for_select(Date::DAYNAMES.each_with_index.map { |name, i| [name, i] }) %>
+  <div class="mt-4 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+    <h1 class="text-2xl font-semibold tracking-tight text-slate-900">Nova disponibilidade</h1>
+    <p class="mt-1 mb-6 text-sm text-slate-500">Escolha o dia e o horário em que você atende.</p>
+
+    <%= render "form", availability: @availability %>
   </div>
-
-  <div>
-    <%= form.label :start_time, "Início" %>
-    <%= form.time_field :start_time %>
-  </div>
-
-  <div>
-    <%= form.label :end_time, "Fim" %>
-    <%= form.time_field :end_time %>
-  </div>
-
-  <%= form.submit "Salvar" %>
-<% end %>
+</div>

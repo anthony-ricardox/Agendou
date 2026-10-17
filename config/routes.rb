@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :services
   resources :availabilities
 
-  resources :providers, only: [:index, :show], controller: "public_providers"
+  resources :providers, only: [:index, :show], controller: "public_providers", as: :public_providers
 
   resources :appointments, only: [:index, :new, :create, :destroy] do
     collection do
