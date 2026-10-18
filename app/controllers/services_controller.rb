@@ -4,7 +4,7 @@ class ServicesController < ApplicationController
   before_action :set_service, only: [:edit, :update, :destroy]
 
   def index
-    @services = current_user.provider.services
+  @services = current_user.provider.services.order(:name)
   end
 
   def new

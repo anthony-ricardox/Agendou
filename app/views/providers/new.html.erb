@@ -1,10 +1,8 @@
-<h1>Tornar-se prestador</h1>
+<div class="mx-auto max-w-md">
+  <div class="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+    <h1 class="text-2xl font-semibold tracking-tight text-slate-900">Oferecer serviços</h1>
+    <p class="mt-1 mb-6 text-sm text-slate-500">Crie seu perfil de prestador. Depois você cadastra serviços e horários.</p>
 
-<%= form_with model: @provider, url: provider_path do |form| %>
-  <div>
-    <%= form.label :bio, "Fale sobre você" %>
-    <%= form.text_area :bio %>
+    <%= render "form", provider: @provider %>
   </div>
-
-  <%= form.submit "Confirmar" %>
-<% end %>
+</div>

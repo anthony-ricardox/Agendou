@@ -1,0 +1,14 @@
+<%= render "shared/errors", record: provider %>
+
+<%= form_with model: provider, url: provider_path, method: (provider.persisted? ? :patch : :post), class: "space-y-5" do |form| %>
+  <div>
+    <%= form.label :bio, "Fale sobre você", class: label_classes %>
+    <%= form.text_area :bio, rows: 5, placeholder: "Ex.: Cabeleireira há 8 anos, especializada em cortes femininos.", class: input_classes %>
+    <p class="mt-1.5 text-xs text-slate-500">Esse texto aparece no seu perfil público.</p>
+  </div>
+
+  <div class="flex items-center gap-3 pt-2">
+    <%= form.submit "Salvar", class: primary_button_classes %>
+    <%= link_to "Cancelar", root_path, class: secondary_button_classes %>
+  </div>
+<% end %>
