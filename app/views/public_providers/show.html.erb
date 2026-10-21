@@ -21,7 +21,7 @@
             <p class="font-medium text-slate-900"><%= service.name %></p>
             <p class="mt-0.5 text-sm text-slate-500">
               <%= service.duration_minutes %> min ·
-              <%= number_to_currency(service.price, unit: "R$ ", separator: ",", delimiter: ".") %>
+             <%= number_to_currency(service.price) %>
             </p>
           </div>
           <%= link_to "Agendar", new_appointment_path(service_id: service.id), class: "shrink-0 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-500" %>
