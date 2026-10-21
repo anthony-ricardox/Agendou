@@ -15,7 +15,7 @@
             <p class="truncate font-medium text-slate-900"><%= service.name %></p>
             <p class="mt-0.5 text-sm text-slate-500">
               <%= service.duration_minutes %> min ·
-              <%= number_to_currency(service.price, unit: "R$ ", separator: ",", delimiter: ".") %>
+              <%= number_to_currency(service.price) %>
             </p>
           </div>
 
