@@ -1,4 +1,6 @@
 source "https://rubygems.org"
+#traduzir para pt-br
+gem "rails-i18n"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.1.3", ">= 8.1.3.1"
