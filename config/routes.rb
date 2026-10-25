@@ -14,6 +14,11 @@ Rails.application.routes.draw do
     collection do
       get :schedule
     end
+
+    member do
+      patch :confirm
+      patch :decline
+    end
   end
 
   get "pages/home"

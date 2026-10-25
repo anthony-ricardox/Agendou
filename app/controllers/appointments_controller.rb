@@ -1,7 +1,8 @@
 class AppointmentsController < ApplicationController
   before_action :require_login
   before_action :set_appointment, only: [:destroy]
-  before_action :require_provider, only: [:schedule]
+  before_action :require_provider, only: [:schedule, :confirm, :decline]
+  before_action :set_provider_appointment, only: [:confirm, :decline]
 
   def index
     @appointments = current_user.appointments
@@ -33,7 +34,8 @@ class AppointmentsController < ApplicationController
     )
 
     if @appointment.save
-      redirect_to appointments_path, notice: "Agendamento confirmado!"
+      redirect_to appointments_path, notice: "Agendamento solicitado! Aguarde a confirmação do prestador."
+
     else
       @available_slots = calculate_available_slots(@service)
       render :new, status: :unprocessable_entity
@@ -45,10 +47,32 @@ class AppointmentsController < ApplicationController
     redirect_to appointments_path, notice: "Agendamento cancelado"
   end
 
+  def confirm
+    change_status(:confirmed, "Agendamento confirmado")
+  end
+
+  def decline
+    change_status(:cancelled, "Agendamento recusado")
+  end
+
   private
 
   def set_appointment
     @appointment = current_user.appointments.find(params[:id])
+  end
+
+  def set_provider_appointment
+    @appointment = current_user.provider.appointments.find(params[:id])
+  end
+
+  def change_status(new_status, message)
+    unless @appointment.pending?
+      redirect_to schedule_appointments_path, alert: "Este agendamento não está mais pendente"
+      return
+    end
+
+    @appointment.update!(status: new_status)
+    redirect_to schedule_appointments_path, notice: message
   end
 
   def require_provider
