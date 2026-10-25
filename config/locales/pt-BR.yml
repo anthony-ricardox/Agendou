@@ -1,0 +1,33 @@
+pt-BR:
+  activerecord:
+    models:
+      user: "Usuário"
+      provider: "Prestador"
+      service: "Serviço"
+      availability: "Disponibilidade"
+      appointment: "Agendamento"
+    attributes:
+      user:
+        name: "Nome"
+        email: "E-mail"
+        password: "Senha"
+        password_confirmation: "Confirmação de senha"
+      provider:
+        user: "Usuário"
+        bio: "Sobre"
+      service:
+        provider: "Prestador"
+        name: "Nome"
+        duration_minutes: "Duração"
+        price: "Preço"
+      availability:
+        provider: "Prestador"
+        day_of_week: "Dia da semana"
+        start_time: "Início"
+        end_time: "Fim"
+      appointment:
+        service: "Serviço"
+        user: "Cliente"
+        starts_at: "Início"
+        ends_at: "Fim"
+        status: "Status"
