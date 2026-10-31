@@ -66,8 +66,9 @@ class AppointmentsController < ApplicationController
   end
 
   def change_status(new_status, message)
-    unless @appointment.pending?
-      redirect_to schedule_appointments_path, alert: "Este agendamento não está mais pendente"
+      unless @appointment.awaiting_response?
+        redirect_to schedule_appointments_path, alert: "Este agendamento não pode mais ser alterado"
+
       return
     end
 

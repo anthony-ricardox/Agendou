@@ -9,6 +9,14 @@ class Appointment < ApplicationRecord
   validate :ends_after_starts
   validate :no_overlapping_appointment
 
+  def expired?
+    pending? && starts_at.past?
+  end
+
+  def awaiting_response?
+    pending? && !expired?
+  end
+
   private
 
   def ends_after_starts
