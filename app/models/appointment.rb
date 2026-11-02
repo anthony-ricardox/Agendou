@@ -1,8 +1,11 @@
 class Appointment < ApplicationRecord
   belongs_to :service
   belongs_to :user
+  belongs_to :provider
 
   enum :status, { pending: 0, confirmed: 1, cancelled: 2 }, default: :pending
+
+  before_validation :set_provider_from_service
 
   validates :starts_at, presence: true
   validates :ends_at, presence: true
@@ -18,6 +21,10 @@ class Appointment < ApplicationRecord
   end
 
   private
+
+  def set_provider_from_service
+    self.provider = service&.provider
+  end
 
   def ends_after_starts
     return if starts_at.blank? || ends_at.blank?
