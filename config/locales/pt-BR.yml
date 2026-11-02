@@ -26,6 +26,7 @@ pt-BR:
         start_time: "Início"
         end_time: "Fim"
       appointment:
+        provider: "Prestador"
         service: "Serviço"
         user: "Cliente"
         starts_at: "Início"

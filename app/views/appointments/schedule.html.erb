@@ -23,7 +23,7 @@
           <div class="flex shrink-0 items-center gap-3">
             <%= status_badge(appointment) %>
 
-            <% if appointment.pending? %>
+              <% if appointment.awaiting_response? %>
               <%= button_to "Recusar", decline_appointment_path(appointment), method: :patch,
                     form: { data: { turbo_confirm: "Recusar este agendamento? O horário volta a ficar livre." } },
                     class: "cursor-pointer rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 transition hover:border-rose-300 hover:bg-rose-50 hover:text-rose-700" %>
