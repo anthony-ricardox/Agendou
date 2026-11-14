@@ -33,9 +33,8 @@ class AppointmentsController < ApplicationController
       ends_at: ends_at
     )
 
-    if @appointment.save
+    if save_appointment
       redirect_to appointments_path, notice: "Agendamento solicitado! Aguarde a confirmação do prestador."
-
     else
       @available_slots = calculate_available_slots(@service)
       render :new, status: :unprocessable_entity
@@ -65,10 +64,16 @@ class AppointmentsController < ApplicationController
     @appointment = current_user.provider.appointments.find(params[:id])
   end
 
-  def change_status(new_status, message)
-      unless @appointment.awaiting_response?
-        redirect_to schedule_appointments_path, alert: "Este agendamento não pode mais ser alterado"
+  def save_appointment
+    @appointment.save
+  rescue ActiveRecord::ExclusionViolation
+    @appointment.errors.add(:base, "Esse horário acabou de ser reservado por outra pessoa. Escolha outro.")
+    false
+  end
 
+  def change_status(new_status, message)
+    unless @appointment.awaiting_response?
+      redirect_to schedule_appointments_path, alert: "Este agendamento não pode mais ser alterado"
       return
     end
 
