@@ -11,6 +11,12 @@
     </p>
   </div>
 
+  <% if @appointment && @appointment.errors.any? %>
+    <div class="mt-6">
+      <%= render "shared/errors", record: @appointment %>
+    </div>
+  <% end %>
+
   <h2 class="mt-10 text-lg font-semibold text-slate-900">Escolha um horário</h2>
 
   <% if @available_slots.any? %>
